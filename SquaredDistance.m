@@ -1,5 +1,5 @@
 function sq_dist = SquaredDistance(P, Q)
-    % SquaredDistance returns the RGB values for for a list of points
+    % SquaredDistance returns the RGB values for a list of points
     % in an image
     % Input(s):     P, Q    = an array with 3 elements representing a point
     %                         in 3D space                     

@@ -14,6 +14,8 @@ function rgb_values = GetRGBValuesForPoints(im_array, points)
     % extract the points we care about from each layer
     indexes = sub2ind(size(im_array(:,:,1)), points(:,1), points(:,2));
     
+    % Seperate im_array into each of its 3 colours and then pull out the
+    % colours at the indexes we care about
     red = im_array(:,:,1);
     green = im_array(:,:,2);
     blue = im_array(:,:,3);
@@ -22,6 +24,7 @@ function rgb_values = GetRGBValuesForPoints(im_array, points)
     green = green(indexes);
     blue = blue(indexes);
     
+    % Recombine the RGB arrays into layers
     rgb_values = cat(3, red, green, blue);
     
 end

@@ -3,11 +3,13 @@ clc
 
 filename = 'test.jpg';
 im_array = imread(filename)
-points = SelectKRandomPoints(im_array, 4);
+points = SelectKRandomPoints(im_array, 6);
 
-%rgb_vals = GetRGBValuesForPoints(im_array, points)
+rgb_vals = GetRGBValuesForPoints(im_array, points);
 
 AssignToClusters(im_array, rgb_vals)
+
+SquaredDistance([245 255 246], [28 22 234]);
 
 % a = [192; 66; 65];
 % b = [50; 73; 192];
