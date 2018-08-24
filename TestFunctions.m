@@ -1,15 +1,22 @@
-%clear
+clear
 clc
 
-filename = 'test.jpg';
-im_array = imread(filename)
-points = SelectKRandomPoints(im_array, 6);
+filename = 'clocktower.jpg';
+k = 4;
+
+im_array = imread(filename);
+
+im_array = double(im_array);
+
+points = SelectKRandomPoints(im_array, k);
 
 rgb_vals = GetRGBValuesForPoints(im_array, points);
 
-AssignToClusters(im_array, rgb_vals)
+nearest_mean = AssignToClusters(im_array, rgb_vals);
 
-SquaredDistance([245 255 246], [28 22 234]);
+% new_means = UpdateMeans(im_array, k, nearest_mean);
+
+KMeansRGB(im_array, rgb_vals, 100);
 
 % a = [192; 66; 65];
 % b = [50; 73; 192];
