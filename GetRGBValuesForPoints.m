@@ -5,9 +5,9 @@ function rgb_values = GetRGBValuesForPoints(im_array, points)
     %               points      = a 2D array of k rows and 2 columns
     %                             containing the points to retrieve the
     %                             RGB values from
-    % Output(s):    rgb_values  = a 3D array containing RGB values from
-    %                             im_array corresponding to the points
-    %                             in pos_array
+    % Output(s):    rgb_values  = a 3D array of k rows, 1 column and 3 layers 
+    %                             containing RGB values from im_array
+    %                             corresponding to the points in pos_array                           
     % Author: Feras Albaroudi
     
     % Convert subscript indexes to linear indexing so we can quickly

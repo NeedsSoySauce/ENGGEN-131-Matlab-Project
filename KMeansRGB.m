@@ -1,44 +1,44 @@
-function [clusters, rgb_means] = KMeansRGB(im_array, seed_means, max_loops)
+function [clusters, means] = KMeansRGB(im_array, seed_means, max_loops)
     % KMeansRGB groups the points in an image into k clusters using the
     % k-means algorithm
     % Input(s):     im_array    = a 3D array containing 3 layers
     %               seed_means  = initial mean RGB values to initialise
-    %                             k-means algorithm
+    %                             the k-means algorithm
     %               max_loops   = the maximum number of iterations to
     %                             perform if convergence is not reached
-    % Output(s):    group       = a 2D array specifying which cluster each
+    % Output(s):    clusters    = a 2D array specifying which cluster each
     %                             pixel in im_array belongs to    
-    %               rgb_means   = a 3D array containing the mean RGB values
+    %               means       = a 3D array containing the mean RGB values
     %                             for each cluster
     % Author: Feras Albaroudi
     
-    k = length(seed_means(:,:,1));
+    % Number of clusters is equal to how many rows there are in seed_means
+    k = size(seed_means, 1);
     
     % Initial setup for k-means algorithm
-    rgb_means = seed_means;
+    means = seed_means;
     
     for i = 1:max_loops       
-        prev_rgb_means = uint8(rgb_means);
+        prev_means = means;
         
         % Assign pixels in im_array to clusters based on the current
         % rgb_means
-        clusters = AssignToClusters(im_array, rgb_means);
+        clusters = AssignToClusters(im_array, means);
         
         % Update rgb_means to reflect the current cluster(s)
-        rgb_means = UpdateMeans(im_array, k, clusters);
+        means = UpdateMeans(im_array, k, clusters);
         
-        % If rgb_means is the same as prev_rgb_means we have converged       
-        % The easiest way to compare the two arrays is to just convert them
-        % to uint8's as that's how the image data will be formatted anyway.
-        if uint8(rgb_means) == prev_rgb_means
-            fprintf(2, 'converged\n')
+        % If means is the same as prev_means we have converged.       
+        % The easiest way to compare the two arrays for equality is to just 
+        % convert them to uint8's as that's how the image data will be 
+        % formatted anyway.
+        if uint8(means) == uint8(prev_means)
             return
-        end
-        
+        end        
     end
     
     % if we get here output an error message
-    fprintf(2, 'did not converge\n')
+    fprintf(2, 'Maximum number of iterations reached before convergence was achieved\n')
     
 end
 
