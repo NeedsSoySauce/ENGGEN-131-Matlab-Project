@@ -10,15 +10,15 @@
 
 % Read in an image to convert
 % If enter is hit the image to read will default to clocktower.jpg
-imageName = 'Peter.jpg'%input('Please enter the name of the image you which to convert:','s');
+imageName = 'clocktower.jpg'%input('Please enter the name of the image you which to convert:','s');
 if length(imageName) == 0
     imageName = 'clocktower.jpg';
 end
 A = imread(imageName);
 
 % get the number of colours and maximum number of iterations from the user
-k = 16%input('How many colours do you want to use? (enter a small number):');
-maxIterations = 100%input('What is the maximum number of iterations you want to permit? (e.g. 200):');
+k = 4%input('How many colours do you want to use? (enter a small number):');
+maxIterations = 200%input('What is the maximum number of iterations you want to permit? (e.g. 200):');
 
 % display the original image in figure 1
 figure(1)

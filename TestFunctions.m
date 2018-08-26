@@ -1,19 +1,19 @@
 
 % Repeat this script 100 times to average how long it takes to execute
 % Ghetto, but it works! (kinda...)
-for i = 1:1
+for i = 1:10
     
-clear
+clearvars -except seed_means
 clc
 
-filename = 'clocktower.jpg';
-k = 4;
+filename = 'test.jpg';
+k = 2;
 im_array = imread(filename);
 im_array = double(im_array);
 
 points = SelectKRandomPoints(im_array, k);
 
-seed_means = GetRGBValuesForPoints(im_array, points);
+%seed_means = GetRGBValuesForPoints(im_array, points);
 
 % KMeansRGB does these two on its own.
 % clusters = AssignToClusters(im_array, rgb_vals);
@@ -36,3 +36,10 @@ im_data = CreateKColourImage(clusters, means);
 
 end
 
+% for
+% 3.3 (k=4)
+% 15 (k=16)
+
+% parfor
+% 4.3
+% 17

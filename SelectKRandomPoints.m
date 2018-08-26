@@ -9,7 +9,7 @@ function points = SelectKRandomPoints(array, k)
     % Generate 'K' unique random linear indexes within the range of 'array'
     indexes = randperm(numel(array(:,:,1)), k);
     
-    % Convert those integers to subscript indexes
+    % Convert those linear indexes to subscript indexes
     [row, col] = ind2sub(size(array(:,:,1)), indexes);
    
     % Convert the returned row vectors to column vectors and concatenate them

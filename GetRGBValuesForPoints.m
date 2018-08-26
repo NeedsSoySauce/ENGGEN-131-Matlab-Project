@@ -21,7 +21,7 @@ function rgb_values = GetRGBValuesForPoints(im_array, points)
     blue = im_array(:,:,3);
     
     red = red(indexes);
-    green = green(indexes);
+    green = green(indexes); 
     blue = blue(indexes);
     
     % Recombine the RGB arrays into layers

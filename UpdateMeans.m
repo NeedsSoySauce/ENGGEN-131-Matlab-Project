@@ -17,19 +17,22 @@ function means = UpdateMeans(im_array, k, clusters)
     % Preallocate space for rgb_mean
     means = zeros(k, 1, 3);
     
-    % We don't want to waste our time calculating the mean for clusters
-    % with no points in them, so only add unique values from nearest_mean
-    % to our loop variable. This also avoids a division by zero when
-    % calculating the means, which would return NaN.
-    
-    % unique() is used as we only want to loop through clusters that have 
-    % points inside of them. 
     % The mean RGB values for each cluster will be the mean of the red,
     % green and blue layers concatenated together
-    for i = unique(clusters)'
-        means(i,1,:) = cat(3, mean(red(clusters == i)), ...
-                              mean(green(clusters == i)), ...
-                              mean(blue(clusters == i)));
+%     for i = 1:k
+%         means(i,1,:) = cat(3, mean(red(clusters == i)), ...
+%                               mean(green(clusters == i)), ...
+%                               mean(blue(clusters == i)));
+%     end
+    
+    for i = 1:k        
+        idx = clusters == i;
+        means(i,1,:) = mean(cat(3, red(idx), green(idx), blue(idx)), 1);
     end
+    
+    % In the event that a cluster contains no points, mean() will return
+    % NaN due to divison by zero. Since this is quite rare, it's quicker to
+    % just replace all NaN values with zero.    
+    means(isnan(means)) = 0;
 end
 
