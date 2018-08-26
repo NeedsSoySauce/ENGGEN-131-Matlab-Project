@@ -17,7 +17,7 @@ end
 A = imread(imageName);
 
 % get the number of colours and maximum number of iterations from the user
-k = 4%input('How many colours do you want to use? (enter a small number):');
+k = 16%input('How many colours do you want to use? (enter a small number):');
 maxIterations = 200%input('What is the maximum number of iterations you want to permit? (e.g. 200):');
 
 % display the original image in figure 1

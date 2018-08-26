@@ -10,7 +10,7 @@ function rgb_values = GetRGBValuesForPoints(im_array, points)
     %                             corresponding to the points in pos_array                           
     % Author: Feras Albaroudi
     
-    % Convert subscript indexes to linear indexing so we can quickly
+    % Convert subscript indexes to linear indexes so we can quickly
     % extract the points we care about from each layer
     indexes = sub2ind(size(im_array(:,:,1)), points(:,1), points(:,2));
     

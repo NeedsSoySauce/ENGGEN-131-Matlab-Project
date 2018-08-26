@@ -12,7 +12,8 @@ function [clusters, means] = KMeansRGB(im_array, seed_means, max_loops)
     %                             for each cluster
     % Author: Feras Albaroudi
     
-    % Number of clusters is equal to how many rows there are in seed_means
+    % Number of clusters is needed to call UpdateMeans() and is equal to 
+    % how many rows there are in seed_means
     k = size(seed_means, 1);
     
     % Initial setup for k-means algorithm
@@ -21,8 +22,7 @@ function [clusters, means] = KMeansRGB(im_array, seed_means, max_loops)
     for i = 1:max_loops       
         prev_means = means;
         
-        % Assign pixels in im_array to clusters based on the current
-        % rgb_means
+        % Assign pixels in im_array to clusters based on the current means
         clusters = AssignToClusters(im_array, means);
         
         % Update rgb_means to reflect the current cluster(s)
@@ -37,7 +37,7 @@ function [clusters, means] = KMeansRGB(im_array, seed_means, max_loops)
         end        
     end
     
-    % if we get here output an error message
+    % If we get here, the k-means algorithm did not converge
     fprintf(2, 'Maximum number of iterations reached before convergence was achieved\n')
     
 end

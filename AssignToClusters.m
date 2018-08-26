@@ -5,7 +5,7 @@ function clusters = AssignToClusters(im_array, means)
     %               means       = a 3D array containing the RGB values for
     %                             each of 'k' means
     % Output(s):    clusters    = a 2D array corresponding to 'im_array' 
-    %                             representing the closest mean in 'mean_vals'                             
+    %                             representing the closest mean in 'means'                             
     % Author: Feras Albaroudi
     
     [im_rows, im_cols, ~] = size(im_array);
@@ -21,20 +21,19 @@ function clusters = AssignToClusters(im_array, means)
     blue = im_array(:,:,3);
  
     % Calculate the squared difference between each pixel and each of 'k'
-    % means and store the results on a layer corresponding to the position of
-    % that 'k' mean in 'means'. Note that matrix addition is used over
-    % sum() due to speed. 
+    % means and store the results on a layer corresponding to the position
+    % of that 'k' mean in 'means'.
     for i = 1:mean_rows   
         clusters(:,:,i) = (red - means(i,1,1)).^2 + ...
                           (green - means(i,1,2)).^2 + ...
                           (blue - means(i,1,3)).^2;                   
     end
-     
+    
     % The nearest mean for each pixel will be equal to the layer in
-    % 'clusters' with the lowest value at that pixel position. In the
-    % case that there are two or more values that are equal, the nearest 
-    % mean will be the layer starting from 1 that the minimum value first 
-    % occured on.   
+    % 'clusters' with the lowest value at that pixel's row-column index. 
+    % In the case that there are two or more values that are equal, the
+    % nearest mean will be the layer starting from 1 that the minimum 
+    % value first occured on.
     [~, clusters] = min(clusters, [], 3);
     
 end

@@ -1,9 +1,9 @@
-clear
+%clear
 imageName = 'Peter.jpg';
 A = imread(imageName);
 A = double(A);
 K = 16;
-maxIterations = 10;
+maxIterations = 1000;
 % figure(1)
 % imshow(A)
 % title(['Original image: ' imageName]);
