@@ -10,14 +10,14 @@ static = false;
 
 % Should we keep running until a NaN seed mean is encountered?
 % Note: If true, this will ignore static
-force_nan = false;
+force_nan = true;
 
 % Do you want to save seed_means?
 save_seed = false;
 
 % k-means algorithm paramaters
 filename = 'clocktower.jpg';
-k = 16;
+k = 4;
 max_loops = 100;
 
 % ----------------------------------------------------------------------- %
@@ -43,8 +43,7 @@ if force_nan
         [clusters, means] = KMeansRGB(im_array, seed_means, max_loops);
         means
     end   
-    im_data = CreateKColourImage(clusters, means);
-    imshow(im_data)   
+    im_data = CreateKColourImage(clusters, means); 
 else
     
     % Selecting intial seed_mean points
@@ -72,11 +71,14 @@ else
     % Generating the k-colour image
     im_data = CreateKColourImage(clusters, means);
 
-    % Displaying the k-colour image
-    imshow(im_data)
-
 end
 
+% Displaying the image
+subplot(1,2,1)
+imshow(uint8(im_array))
+subplot(1,2,2)
+imshow(im_data)
+ 
 if save_seed
     save seed_means seed_means
 end

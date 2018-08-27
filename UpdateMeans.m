@@ -26,9 +26,13 @@ function means = UpdateMeans(im_array, k, clusters)
         means(i,1,:) = mean(cat(3, red(idx), green(idx), blue(idx)), 1);
     end
     
-    % In the event that a cluster contains no points, mean() will return
-    % NaN due to divison by zero. Since this is quite rare, it's quicker to
-    % just replace all NaN values with zero.
+    % Note that it is possible for a cluster to end up with no points, in
+    % which case, mean() will return NaN due to divison by zero. An
+    % alternative version of this function called 'UpdateMeans
+    
+    % The
+    % following line of code can be uncommented to offer a potential fix
+    % for this, but it is NOT a requirement of the k-means algorithm.
 %     means(isnan(means)) = NaN;
 end
 
