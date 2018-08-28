@@ -21,10 +21,22 @@ function means = UpdateMeans(im_array, k, clusters)
     
     % The mean RGB values for each cluster will be the mean of the red,
     % green and blue layers concatenated together
-    for i = 1:k              
-        idx = clusters == i;
-        means(i,1,:) = mean(cat(3, red(idx), green(idx), blue(idx)), 1);
-    end
+    for i = 1:k
+        
+        % The following logical array is likely to contain many zeros, so
+        % we can conserve a large amount of memory and significantly 
+        % improve performance by storing it as a sparse array.
+        idx = sparse(clusters == i);
 
+        % Calculating the mean of the red, green and blue layers and
+        % assigning them directly to 'means'. This is done to avoid any
+        % overhead from calling cat() or mean().
+        elems = nnz(idx);
+        means(i,1,1) = sum(red(idx))/elems;
+        means(i,1,2) = sum(green(idx))/elems;
+        means(i,1,3) = sum(blue(idx))/elems;
+
+    end
+    
 end
 

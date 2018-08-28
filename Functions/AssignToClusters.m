@@ -26,7 +26,7 @@ function clusters = AssignToClusters(im_array, means)
     for i = 1:mean_rows   
         clusters(:,:,i) = (red - means(i,1,1)).^2 + ...
                           (green - means(i,1,2)).^2 + ...
-                          (blue - means(i,1,3)).^2;                   
+                          (blue - means(i,1,3)).^2;         
     end
     
     % The nearest mean for each pixel will be equal to the layer in
@@ -35,8 +35,38 @@ function clusters = AssignToClusters(im_array, means)
     % nearest mean will be the layer starting from 1 that the minimum 
     % value first occured on.
     [~, clusters] = min(clusters, [], 3);
+
     
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

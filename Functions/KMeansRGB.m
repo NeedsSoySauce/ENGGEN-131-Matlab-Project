@@ -12,6 +12,8 @@ function [clusters, means] = KMeansRGB(im_array, seed_means, max_loops)
     %                             for each cluster
     % Author: Feras Albaroudi
 
+    % We don't need the additional precision of a double, so conserve
+    % memory and speed up vectorized operations by converting to a single
     im_array = single(im_array);
     seed_means = single(seed_means);
     
@@ -28,14 +30,11 @@ function [clusters, means] = KMeansRGB(im_array, seed_means, max_loops)
         % Assign pixels in im_array to clusters based on the current means
         clusters = AssignToClusters(im_array, means);
         
-        % Update rgb_means to reflect the current cluster(s)
+        % Update means to reflect the current cluster(s)
         means = UpdateMeans(im_array, k, clusters);
         
-        % If means is the same as prev_means we have converged.       
-        % The easiest way to compare the two arrays for equality is to just 
-        % convert them to uint8's as that's how the image data will be 
-        % formatted anyway.
-        if uint8(means) == uint8(prev_means)
+        % If means is exactly the same as prev_means we have converged.       
+        if means==prev_means
             return
         end        
     end

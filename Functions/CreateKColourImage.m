@@ -12,7 +12,7 @@ function im_array = CreateKColourImage(clusters, means)
 
     [im_rows, im_cols, ~] = size(clusters);
     
-    % Preallocate space for 24 bit RGB image
+    % Preallocate space for a 24 bit RGB image
     im_array = zeros(im_rows, im_cols, 3, 'uint8');
 
     % Split im_array into its 3 colour layers so we can assign to each
@@ -21,12 +21,17 @@ function im_array = CreateKColourImage(clusters, means)
     green = im_array(:,:,2);
     blue = im_array(:,:,3);
     
-    % We only need to loop through the unique values in 'clusters' as these
-    % represent the means that will be assigned to im_array
-    for i = unique(clusters)'
-        red(clusters==i) = means(i,1,1);
-        green(clusters==i) = means(i,1,2);
-        blue(clusters==i) = means(i,1,3);
+    for i = size(means,1)      
+        % The following logical array is likely to contain many zeros, so
+        % we can conserve a large amount of memory and significantly 
+        % improve performance by storing it as a sparse array.
+        idx = sparse(clusters==i);
+        
+        % Assign the mean colour for each cluster to all the pixels in that
+        % cluster
+        red(idx) = means(i,1,1);
+        green(idx) = means(i,1,2);
+        blue(idx) = means(i,1,3);
     end
 
     % Recombine the colour layers

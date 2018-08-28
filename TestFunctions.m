@@ -1,87 +1,57 @@
-% Test script
-% There IS a lot of repeated code here, but this is because I want to keep
-% things seperated as I often drop in a line or two somewhere for debugging.
 
-close all
-clc
+A(:,:,1) = [192 227 38  208
+            65  245 66  62
+            129 140 214 237
+            178 35  65  89]; 
+        
+A(:,:,2) = [50  90  234 97
+            64  212 73  145
+            157 149 193 19
+            121 140 192 14]; 
+        
+A(:,:,3) = [135 145 41  42
+            199 120 203 154
+            238 3   79  67
+            33  86  135 167]; 
 
-% Should we keep using the current seed means or generate a new one?
-static = false;
+points =   [1 1; 
+            2 3;
+            4 3];
+        
+Colours = cat(3, [192; 66; 65], [50; 73; 192], [135; 203; 135]);
 
-% Should we keep running until a NaN seed mean is encountered?
-% Note: If true, this will ignore static
-force_nan = true;
+output = GetRGBValuesForPoints(A, points);
 
-% Do you want to save seed_means?
-save_seed = false;
-
-% k-means algorithm paramaters
-filename = 'clocktower.jpg';
-k = 4;
-max_loops = 100;
-
-% ----------------------------------------------------------------------- %
-
-if static
-    clearvars -except seed_means points filename k max_loops static force_nan save_seed
-else
-    clearvars -except filename k max_loops static force_nan save_seed
-end
-
-% Image loading and conversion
-im_array = imread(filename);
-im_array = double(im_array);
-
-% This is used instead when force_nan is true
-if force_nan
-    points = SelectKRandomPoints(im_array, k);
-    seed_means = GetRGBValuesForPoints(im_array, points);
-    [clusters, means] = KMeansRGB(im_array, seed_means, max_loops);
-    while ~any(isnan(means))
-        points = SelectKRandomPoints(im_array, k);
-        seed_means = GetRGBValuesForPoints(im_array, points);
-        [clusters, means] = KMeansRGB(im_array, seed_means, max_loops);
-        means
-    end   
-    im_data = CreateKColourImage(clusters, means); 
-else
-    
-    % Selecting intial seed_mean points
-    if static
-        points;  
+for i = 1:size(output,1)
+    if Colours(i,1,:) == output(i,1,:)
+        fprintf('Test %d passed\n', i)
     else
-        %     points = [1 1; 1 2; 1 3; 1 4; 1 5] % Test with 'peter.jpg'
-        points = SelectKRandomPoints(im_array, k);
+        fprintf(2, 'Test %d failed\n', i)
+        
     end
-
-    % Getting the RGB values for the initial seed mean points
-    if static
-        seed_means
-    else
-        seed_means = GetRGBValuesForPoints(im_array, points);
-    end
-
-    % KMeansRGB does these two on its own.
-    % clusters = AssignToClusters(im_array, seed_means)
-    % new_means = UpdateMeans(im_array, k, clusters);
-
-    % k-means algorithm
-    [clusters, means] = KMeansRGB(im_array, seed_means, max_loops);
-
-    % Generating the k-colour image
-    im_data = CreateKColourImage(clusters, means);
-
 end
 
-% Displaying the image
-subplot(1,2,1)
-imshow(uint8(im_array))
-subplot(1,2,2)
-imshow(im_data)
- 
-if save_seed
-    save seed_means seed_means
-end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

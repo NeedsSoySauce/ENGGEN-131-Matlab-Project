@@ -1,3 +1,4 @@
+close all
 clear;
 clc;
 
@@ -22,7 +23,7 @@ k_pic = CreateKColourImage(assign, clusts);
 
 profile off;
 
-figure;
-imshow(k_pic);
+% figure;
+% imshow(k_pic);
 
 profile viewer;
