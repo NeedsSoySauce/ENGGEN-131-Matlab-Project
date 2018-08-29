@@ -14,8 +14,8 @@ function [clusters, means] = KMeansRGB(im_array, seed_means, max_loops)
 
     % We don't need the additional precision of a double, so conserve
     % memory and speed up vectorized operations by converting to a single
-    im_array = single(im_array);
-    seed_means = single(seed_means);
+%     im_array = single(im_array);
+%     seed_means = single(seed_means);
     
     % Number of clusters is needed to call UpdateMeans() and is equal to 
     % how many rows there are in seed_means

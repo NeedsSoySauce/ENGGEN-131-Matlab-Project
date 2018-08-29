@@ -17,7 +17,7 @@ function means = UpdateMeans(im_array, k, clusters)
     blue = im_array(:,:,3);
     
     % Preallocate space for 'means'
-    means = zeros(k, 1, 3, 'single');
+    means = zeros(k, 1, 3, 'double');
     
     % The mean RGB values for each cluster will be the mean of the red,
     % green and blue layers concatenated together

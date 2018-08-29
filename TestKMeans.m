@@ -20,8 +20,8 @@ show_image = false;
 
 % k-means algorithm paramaters
 filename = 'test.jpg';
-k = 4;
-max_loops = 200;
+k = 2;
+max_loops = 1;
 
 % ----------------------------------------------------------------------- %
 
@@ -53,9 +53,9 @@ else
     
     % Selecting intial seed_mean points
     if static
-        points
+        points;
     else
-        points = SelectKRandomPoints(im_array, k)
+        points = SelectKRandomPoints(im_array, k);
     end
 
     % Getting the RGB values for the initial seed mean points
