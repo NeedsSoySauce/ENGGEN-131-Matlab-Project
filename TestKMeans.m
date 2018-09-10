@@ -2,7 +2,8 @@
 % There IS a lot of repeated code here, but this is because I want to keep
 % things seperated as I often drop in a line or two somewhere for debugging.
 
-% close all
+close all
+clear
 clc
 
 % Should we keep using the current seed means or generate a new one?
@@ -16,19 +17,22 @@ force_nan = false;
 save_seed = false;
 
 % Do you want to display the converted image?
-show_image = false;
+show_image = true;
+
+% What datatype do you want to use? (optional)
+typename = 'double';
 
 % k-means algorithm paramaters
-filename = 'test.jpg';
-k = 2;
-max_loops = 1;
+filename = 'clocktower.jpg';
+k = 10;
+max_loops = 200;
 
 % ----------------------------------------------------------------------- %
 
 if static
-    clearvars -except seed_means points filename k max_loops static force_nan save_seed show_image
+    clearvars -except seed_means points filename k max_loops static force_nan save_seed show_image typename
 else
-    clearvars -except filename k max_loops static force_nan save_seed show_image
+    clearvars -except filename k max_loops static force_nan save_seed show_image typename
 end
 
 % Image loading and conversion
@@ -41,11 +45,11 @@ profile on
 if force_nan
     points = SelectKRandomPoints(im_array, k);
     seed_means = GetRGBValuesForPoints(im_array, points);
-    [clusters, means] = KMeansRGB(im_array, seed_means, max_loops);
+    [clusters, means] = KMeansRGB(im_array, seed_means, max_loops, typename);
     while ~any(isnan(means))
         points = SelectKRandomPoints(im_array, k);
         seed_means = GetRGBValuesForPoints(im_array, points);
-        [clusters, means] = KMeansRGB(im_array, seed_means, max_loops);
+        [clusters, means] = KMeansRGB(im_array, seed_means, max_loops, typename);
         means
     end   
     im_data = CreateKColourImage(clusters, means); 
@@ -60,9 +64,9 @@ else
 
     % Getting the RGB values for the initial seed mean points
     if static
-        seed_means
+        seed_means;
     else
-        seed_means = GetRGBValuesForPoints(im_array, points)
+        seed_means = GetRGBValuesForPoints(im_array, points);
     end
 
     % KMeansRGB does these two on its own.
