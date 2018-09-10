@@ -6,14 +6,16 @@ function points = SelectKRandomPoints(array, k)
     % Output(s):    points      = a 2D array containing the subscript index of
     %                             the randomly selected elements in 'array'
     % Author: Feras Albaroudi
+
+    [rows, cols, ~] = size(array);
     
     % Generate 'k' unique random linear indexes within the range of 'array'
-    indexes = randperm(numel(array(:,:,1)), k);
+    idx = randperm(rows*cols, k);
     
     % Convert those linear indexes to subscript indexes
-    [row, col] = ind2sub(size(array(:,:,1)), indexes);
+    [row, col] = ind2sub([rows cols], idx);
    
     % Format row and col into a single 2D array with k rows and 2 columns
-    points = [row', col'];
+    points = [row(:), col(:)];
     
 end
