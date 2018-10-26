@@ -1,4 +1,4 @@
-# ENGGEN 131 Image 
+# ENGGEN 131 K-means Clustering 
 
 This project involved the use of k-means clustering to convert an image with "n" colors to a version with "k" colors. An example is shown below.
 
