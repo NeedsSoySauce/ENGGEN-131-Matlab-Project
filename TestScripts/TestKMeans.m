@@ -24,7 +24,7 @@ typename = 'double';
 
 % k-means algorithm paramaters
 filename = 'clocktower.jpg';
-k = 10;
+k = 4;
 max_loops = 200;
 
 % ----------------------------------------------------------------------- %
